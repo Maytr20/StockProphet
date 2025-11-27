@@ -30,6 +30,7 @@
             2
           );
         } catch (err) {
+          console.error(err); // <- will show why it failed
           document.getElementById("output").textContent =
             "Error fetching data!";
         }

@@ -1,8 +1,18 @@
 from fastapi import FastAPI
 import yfinance as yf
 import pandas as pd
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(title="My Stock App - Backend")
+
+# Allow all origins for testing (you can restrict later)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # <- for development, use ["http://localhost:5500"] or similar
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/prices/{symbol}")
 def get_prices(symbol: str, period: str = "1mo"):
