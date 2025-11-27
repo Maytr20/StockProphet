@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>Get Stock prices</h2>
+    <label>Enter Symbol (example: INFY.NS): </label>
+    <input id="symbol" type="text" />
+    <button onclick="getPrices()">Fetch</button>
+
+    <pre id="output"></pre>
+
+    <script>
+      async function getPrices() {
+        const symbol = document.getElementById("symbol").value;
+
+        const url = `http://127.0.0.1:8000/prices/${symbol}`;
+
+        document.getElementById("output").textContent = "Loading...";
+
+        try {
+          const response = await fetch(url);
+          const data = await response.json();
+          document.getElementById("output").textContent = JSON.stringify(
+            data,
+            null,
+            2
+          );
+        } catch (err) {
+          document.getElementById("output").textContent =
+            "Error fetching data!";
+        }
+      }
+    </script>
+  </body>
+</html>
